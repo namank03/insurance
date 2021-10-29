@@ -1,5 +1,3 @@
-from pprint import pp
-
 from django.shortcuts import redirect, render
 
 

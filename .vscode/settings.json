@@ -1,0 +1,10 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintArgs": [
+        // "--disable=django-not-configured",
+        "--load-plugins",
+        "pylint_django",
+        "--django-settings-module=config.settings.local",
+    ],
+}
