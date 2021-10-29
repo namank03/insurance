@@ -1,1 +1,15 @@
 {% extends "base.html" %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<div class="card shadow p-3 mb-5 bg-white rounded">
+  <div class="card-body text-center ">
+    <h6>Hi, I'm Naman!! Please use the below details to contact me.</h6>
+    <p><span>Email: </span>khandelwalnaman03@gmail.com</p>
+    <p><span>Phone: </span>+918160279020</p>
+  </div>
+</div>
+{% endif %}
+
+
+{% endblock content %}

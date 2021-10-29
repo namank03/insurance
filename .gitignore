@@ -195,6 +195,9 @@ $RECYCLE.BIN/
 *.DS_Store
 .AppleDouble
 .LSOverride
+insuarance/
+insuarance
+insuarance.db
 
 # Icon must end with two \r
 Icon
@@ -273,5 +276,4 @@ tags
 insurance/media/
 
 .pytest_cache/
-
 
