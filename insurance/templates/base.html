@@ -59,23 +59,22 @@
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      {% if request.user.is_authenticated %}
+      {# URL provided by django-allauth/account/urls.py #}
+      <a class="navbar-brand" href="{% url 'users:detail' request.user.username  %}">{% translate "My Profile" %}</a>
+      {% else %}
       <a class="navbar-brand" href="{% url 'home' %}">Insurance</a>
+      {% endif %}
+
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-          </li>
           {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
           {% endif %}
           {% if request.user.is_authenticated %}
-          <li class="nav-item">
-            {# URL provided by django-allauth/account/urls.py #}
-            <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% translate "My Profile" %}</a>
-          </li>
           <li class="nav-item">
             {# URL provided by django-allauth/account/urls.py #}
             <a class="nav-link" href="{% url 'account_logout' %}">{% translate "Sign Out" %}</a>
