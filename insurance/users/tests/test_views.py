@@ -11,11 +11,7 @@ from django.urls import reverse
 from insurance.users.forms import UserChangeForm
 from insurance.users.models import User
 from insurance.users.tests.factories import UserFactory
-from insurance.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from insurance.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 
