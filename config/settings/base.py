@@ -43,9 +43,9 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
 DATABASES = {
     # "default": env.db("DATABASE_URL", default="postgres:///insurance"),
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'insuarance',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "insuarance",
     }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
