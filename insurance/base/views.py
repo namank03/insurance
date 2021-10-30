@@ -5,56 +5,60 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 
 from .forms import PolicyForm
-from .models import Customer, Policy
+from .models import Policy
 
 
-@login_required(login_url='account_login')
+@login_required(login_url="account_login")
 def policy_view(request):
-    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    order_by = request.GET.get("order_by", "created_at")
+    q = request.GET.get("q") if request.GET.get("q") is not None else ""
     # * icontains is kind of a regex match.
-    policies = Policy.objects.filter(Q(id__icontains=q) | Q(customer__id__icontains=q))
-    context = {'policies': policies}
-    return render(request, 'policy/policies.html', context)
+    policies = Policy.objects.filter(
+        Q(id__icontains=q)
+        | Q(customer__id__icontains=q)
+        | Q(customer__name__icontains=q)
+    ).order_by(order_by)
+    context = {"policies": policies}
+    return render(request, "policy/policies.html", context)
 
 
-@login_required(login_url='account_login')
+@login_required(login_url="account_login")
 def create_policy(request):
     form = PolicyForm()
-    if request.method == 'POST':
-        Policy.objects.create(
-            fuel=request.POST.get('fuel'),
-            vehicle_segment=request.POST.get('vehicle_segment'),
-            premium=request.POST.get('premium'),
-            customer=Customer.objects.get(id=request.POST.get('customer')),
-        )
-        return redirect('base:policies')
-    context = {'form': form}
-    return render(request, 'policy/policy_form.html', context)
+    if request.method == "POST":
+        form = PolicyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Policy Updated successfully")
+        else:
+            messages.error(request, "Invalid Value for Premium")
+        return redirect("base:policies")
+    context = {"form": form, "form_name": "Create Policy"}
+    return render(request, "policy/policy_form.html", context)
 
 
-@login_required(login_url='account_login')
-def deletePolicy(request, pk):
-    policy = Policy.objects.get(id=pk)
-    if request.method == 'POST':
-        policy.delete()
-        return redirect('base:policies')
-    return render(request, 'pages/delete.html', {'obj': policy})
-
-
-@login_required(login_url='account_login')
+@login_required(login_url="account_login")
 def update_policy(request, pk):
     policy = Policy.objects.get(id=pk)
     # Prefilling the form with the policy instance value
     form = PolicyForm(instance=policy)
-    if request.method == 'POST':
-        policy.fuel = request.POST.get('fuel')
-        policy.vehicle_segment = request.POST.get('vehicle_segment')
-        policy.premium = request.POST.get('premium')
-        policy.customer = Customer.objects.get(id=request.POST.get('customer'))
-        if int(policy.premium) < 0 or int(policy.premium) > 100000:
-            messages.error(request, "Invalid Value for Premium")
+    if request.method == "POST":
+        form = PolicyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Policy Updated successfully")
         else:
-            policy.save()
-        return redirect('base:policies')
-    context = {'form': form, 'policy': policy}
-    return render(request, 'policy/policy_form.html', context)
+            messages.error(request, "Invalid Value for Premium")
+        return redirect("base:policies")
+    context = {"form": form, "form_name": "Updated Policy"}
+    return render(request, "policy/policy_form.html", context)
+
+
+@login_required(login_url="account_login")
+def deletePolicy(request, pk):
+    policy = Policy.objects.get(id=pk)
+    if request.method == "POST":
+        policy.delete()
+        messages.success(request, "Policy deleted successfully")
+        return redirect("base:policies")
+    return render(request, "pages/delete.html", {"obj": policy})
