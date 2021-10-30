@@ -8,6 +8,7 @@ from .forms import PolicyForm
 from .models import Customer, Policy
 
 
+@login_required(login_url='account_login')
 def policy_view(request):
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
     # * icontains is kind of a regex match.
@@ -16,7 +17,7 @@ def policy_view(request):
     return render(request, 'policy/policies.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='account_login')
 def create_policy(request):
     form = PolicyForm()
     if request.method == 'POST':
@@ -31,7 +32,7 @@ def create_policy(request):
     return render(request, 'policy/policy_form.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='account_login')
 def deletePolicy(request, pk):
     policy = Policy.objects.get(id=pk)
     if request.method == 'POST':
@@ -40,7 +41,7 @@ def deletePolicy(request, pk):
     return render(request, 'pages/delete.html', {'obj': policy})
 
 
-@login_required(login_url='login')
+@login_required(login_url='account_login')
 def update_policy(request, pk):
     policy = Policy.objects.get(id=pk)
     # Prefilling the form with the policy instance value
