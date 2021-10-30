@@ -62,4 +62,4 @@ def get_sales_chart(request, year):
 
 
 def statistics_view(request):
-    return render(request, 'statistics.html', {})
+    return render(request, 'charts/statistics.html', {})
