@@ -11,6 +11,7 @@
       <th scope="col"><a href="?order_by=id">Policy</a></th>
       <th scope="col"><a href="?order_by=fuel">Fuel</a></th>
       <th scope="col"><a href="?order_by=customer">Customer</a></th>
+      <th scope="col"><a href="#">Region</a></th>
       <th scope="col"><a href="?order_by=created_at">Date Of Purchase</a></th>
       <th scope="col"><a href="?order_by=vehicle_segment">Vehicle Segment</a></th>
       <th scope="col"><a href="?order_by=premium">Premium</a></th>
@@ -29,6 +30,7 @@
           {{policy.customer}}
         </a>
       </td>
+      <td>{{policy.customer.region|title }}</td>
       <td>{{policy.created_at | date:"M d, Y" }}</td>
       <td>{{policy.vehicle_segment}}</td>
       <td>{{policy.premium}}</td>

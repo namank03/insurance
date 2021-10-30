@@ -4,6 +4,8 @@
     <form id="filterForm" class="form-horizontal col-3">
       <label for="year">Choose a year:</label>
       <select name="year" id="year"></select>
+      <label for="region">Choose a Region:</label>
+      <select name="region" id="region"></select>
       <input type="submit" value="Load" name="_load" />
     </form>
     <canvas id="salesChart" class="col-9"></canvas>
@@ -18,9 +20,14 @@
       dataType: "json",
       success: (jsonResponse) => {
         // Load all the options
-        jsonResponse.options.forEach((option) => {
+        jsonResponse.year_options.forEach((option) => {
           $("#year").append(new Option(option, option));
         });
+
+        jsonResponse.region_options.forEach((option) => {
+          $("#region").append(new Option(option, option));
+        });
+
         // Load data for the first option
         loadAllCharts($("#year").children().first().val());
       },

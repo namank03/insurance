@@ -5,7 +5,7 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from insurance.base.models import Policy
+from insurance.base.models import Customer, Policy
 from insurance.utils.charts import colorPrimary, get_year_dict, months
 
 
@@ -16,13 +16,13 @@ def get_filter_options(request):
         .order_by('-year')
         .distinct()
     )
-    print(f'len(grouped_policies) -> {len(grouped_policies)}')
-    options = [policy['year'] for policy in grouped_policies]
+    grouped_regions = Customer.objects.values('region').distinct()
+
+    year_options = [policy['year'] for policy in grouped_policies]
+    region_options = [region['region'] for region in grouped_regions]
 
     return JsonResponse(
-        {
-            'options': options,
-        }
+        {'year_options': year_options, 'region_options': region_options}
     )
 
 
