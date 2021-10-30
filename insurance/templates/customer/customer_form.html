@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ customer.id }}{% endblock %}
+{% block content %}
+
+<div class="card shadow p-3 mb-5 bg-white rounded">
+  <div class="card-header text-white bg-dark">
+    {{ form_name }}
+  </div>
+  <div class="card-body">
+    <form class="form-horizontal" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

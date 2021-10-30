@@ -19,7 +19,7 @@ urlpatterns = [
     path("users/", include("insurance.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-    path("policies/", include("insurance.base.urls", namespace="base")),
+    path("", include("insurance.base.urls", namespace="base")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
