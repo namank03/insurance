@@ -122,3 +122,14 @@ def delete_customer(request, pk):
         messages.success(request, "Customer deleted successfully")
         return redirect("base:customers")
     return render(request, "pages/delete.html", {"obj": customer})
+
+
+@login_required(login_url="account_login")
+def customer_detail(request, pk):
+    customer = Customer.objects.get(id=pk)
+    policies = customer.policies.all()
+    context = {
+        'customer': customer,
+        'policies': policies,
+    }
+    return render(request, "customer/detail.html", context)

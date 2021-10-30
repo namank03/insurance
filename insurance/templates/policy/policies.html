@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<style>
-  a {
-    color: white;
-  }
-
-</style>
 
 <div class="header">
   <a href="{% url 'base:createPolicy' %}" class="btn btn-success btn-lg my-2" role="button"
@@ -25,36 +19,6 @@
   </form>
 </div>
 
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col"><a href="?order_by=id">Policy</a></th>
-      <th scope="col"><a href="?order_by=fuel">Fuel</a></th>
-      <th scope="col"><a href="?order_by=customer">Customer</a></th>
-      <th scope="col"><a href="?order_by=created_at">Date Of Purchase</a></th>
-      <th scope="col"><a href="?order_by=vehicle_segment">Vehicle Segment</a></th>
-      <th scope="col"><a href="?order_by=premium">Premium</a></th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for policy in policies %}
-    <tr>
-      <th scope="row">{{ policy.id }}</th>
-      <td>{{policy.fuel}}</td>
-      <td>{{policy.customer}}</td>
-      <td>{{policy.created_at | date:"M d, Y" }}</td>
-      <td>{{policy.vehicle_segment}}</td>
-      <td>{{policy.premium}}</td>
-      <td>
-        <a href="{% url 'base:updatePolicy' policy.id %}" class="text-success">Update</a>
-      </td>
-      <td>
-        <a href="{% url 'base:deletePolicy' policy.id %}" class="text-danger">Delete</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% include 'policy/policy_table.html' %}
+
 {% endblock content %}
