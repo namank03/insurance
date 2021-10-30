@@ -10,7 +10,9 @@
     <div class="col-sm-12">
 
       <h2>{{ object.username }}</h2>
+      {% if object.email %}
       <p><span>Email:</span>{{ object.email }}</p>
+      {% endif %}
       {% if object.name %}
       <p><span>Name:</span>{{ object.name }}</p>
       {% endif %}
@@ -22,8 +24,8 @@
   <div class="row">
 
     <div class="col-sm-12">
-      <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-      <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+      <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">Update Info</a>
+      <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">Add-Mail</a>
       <!-- Your Stuff: Custom user template urls -->
     </div>
 

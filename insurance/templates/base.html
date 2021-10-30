@@ -61,7 +61,7 @@
       </button>
       {% if request.user.is_authenticated %}
       {# URL provided by django-allauth/account/urls.py #}
-      <a class="navbar-brand" href="{% url 'users:detail' request.user.username  %}">{% translate "My Profile" %}</a>
+      <a class="navbar-brand" href="{% url 'users:detail' request.user.username  %}">{% translate "Home" %}</a>
       {% else %}
       <a class="navbar-brand" href="{% url 'home' %}">Insurance</a>
       {% endif %}
@@ -75,6 +75,10 @@
           </li>
           {% endif %}
           {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            {# URL provided by django-allauth/account/urls.py #}
+            <a class="nav-link" href="{% url 'base:policies' %}">{% translate "Policies" %}</a>
+          </li>
           <li class="nav-item">
             {# URL provided by django-allauth/account/urls.py #}
             <a class="nav-link" href="{% url 'account_logout' %}">{% translate "Sign Out" %}</a>
@@ -105,7 +109,6 @@
     {% endif %}
 
     {% block content %}
-    Hii!! Welcome to The Insurance App. Please Sign-In/Sign-Up to continue..
     {% endblock content %}
 
   </div> <!-- /container -->

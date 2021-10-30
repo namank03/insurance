@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ policy.id }}{% endblock %}
+{% block content %}
+<form class="form-horizontal" method="post">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">ADD</button>
+    </div>
+  </div>
+</form>
+{% endblock content %}

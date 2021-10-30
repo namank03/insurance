@@ -43,10 +43,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
 DATABASES = {
     # "default": env.db("DATABASE_URL", default="postgres:///insurance"),
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "insuarance",
-    }
+    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "insurance.db"}
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
@@ -78,11 +75,13 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    # 'rest_auth',
 ]
 
 LOCAL_APPS = [
     "insurance.users.apps.UsersConfig",
     # Your stuff: custom apps go here
+    "insurance.base.apps.BaseConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

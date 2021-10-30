@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'base:createPolicy' %}" class="btn btn-primary btn-lg" role="button" aria-disabled="true">AddPolicy</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Fuel</th>
+      <th scope="col">Customer</th>
+      <th scope="col">Date Of Purchase</th>
+      <th scope="col">Vehicle Segment</th>
+      <th scope="col">Premium</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for policy in policies %}
+    <tr>
+      <th scope="row">{{ policy.id }}</th>
+      <td>{{policy.fuel}}</td>
+      <td>{{policy.customer.name}}</td>
+      <td>{{policy.created_at}}</td>
+      <td>{{policy.vehicle_segment}}</td>
+      <td>{{policy.premium}}</td>
+      <td>
+        <a href="#" class="text-success">Update</a>
+      </td>
+      <td>
+        <a href="#" class="text-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock content %}
