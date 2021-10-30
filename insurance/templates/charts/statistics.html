@@ -6,9 +6,9 @@
       <select name="year" id="year"></select>
       <label for="region">Choose a Region:</label>
       <select name="region" id="region"></select>
-      <input type="submit" value="Load" name="_load" />
+      <input type="submit" value="Load" name="_load" class="btn-success" />
     </form>
-    <canvas id="salesChart" class="col-9"></canvas>
+    <canvas id="policyChart" class="col-8"></canvas>
   </div>
 </div>
 {% block inline_javascript %}
@@ -29,7 +29,7 @@
         });
 
         // Load data for the first option
-        loadAllCharts($("#year").children().first().val());
+        loadAllCharts($("#year").children().first().val(), $("#region").children().first().val());
       },
       error: () => console.log("Failed to fetch chart filter options!"),
     });
@@ -39,7 +39,8 @@
     event.preventDefault();
 
     const year = $("#year").val();
-    loadAllCharts(year);
+    const region = $("#region").val();
+    loadAllCharts(year, region);
   });
 
   function loadChart(chart, endpoint) {
@@ -71,14 +72,14 @@
     });
   }
 
-  function loadAllCharts(year) {
-    loadChart(salesChart, `chart/sales/${year}/`);
+  function loadAllCharts(year, region) {
+    loadChart(policyChart, `chart/policy/${year}/${region}`);
   }
 
 </script>
 <script>
-  let salesCtx = document.getElementById("salesChart").getContext("2d");
-  let salesChart = new Chart(salesCtx, {
+  let policyCtx = document.getElementById("policyChart").getContext("2d");
+  let policyChart = new Chart(policyCtx, {
     type: "bar",
     options: {
       responsive: true,

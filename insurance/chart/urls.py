@@ -11,5 +11,5 @@ urlpatterns = [
         views.get_filter_options,
         name='chart-filter-options',
     ),
-    path('sales/<int:year>/', views.get_policy_chart, name='chart-sales'),
+    path('policy/<int:year>/<str:region>', views.get_policy_chart, name='chart-policy'),
 ]

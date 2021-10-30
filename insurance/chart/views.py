@@ -26,8 +26,8 @@ def get_filter_options(request):
     )
 
 
-def get_policy_chart(request, year):
-    policies = Policy.objects.filter(created_at__year=year)
+def get_policy_chart(request, year, region):
+    policies = Policy.objects.filter(created_at__year=year, customer__region=region)
     grouped_policies = (
         policies.annotate(price=F('premium'))
         .annotate(month=ExtractMonth('created_at'))
@@ -37,22 +37,22 @@ def get_policy_chart(request, year):
         .order_by('month')
     )
 
-    sales_dict = get_year_dict()
+    policy_dict = get_year_dict()
 
     for group in grouped_policies:
-        sales_dict[months[group['month'] - 1]] = round(group['average'], 2)
+        policy_dict[months[group['month'] - 1]] = round(group['average'], 2)
 
     return JsonResponse(
         {
             'title': f'Policies {year}',
             'data': {
-                'labels': list(sales_dict.keys()),
+                'labels': list(policy_dict.keys()),
                 'datasets': [
                     {
                         'label': 'Count',
                         'backgroundColor': colorPrimary,
                         'borderColor': colorPrimary,
-                        'data': list(sales_dict.values()),
+                        'data': list(policy_dict.values()),
                     }
                 ],
             },
