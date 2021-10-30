@@ -1,4 +1,5 @@
 # Create your views here.
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -52,7 +53,10 @@ def update_policy(request, pk):
         policy.vehicle_segment = request.POST.get('vehicle_segment')
         policy.premium = request.POST.get('premium')
         policy.customer = Customer.objects.get(id=request.POST.get('customer'))
-        policy.save()
+        if int(policy.premium) < 0 or int(policy.premium) > 100000:
+            messages.error(request, "Invalid Value for Premium")
+        else:
+            policy.save()
         return redirect('base:policies')
     context = {'form': form, 'policy': policy}
     return render(request, 'policy/policy_form.html', context)
