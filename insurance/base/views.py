@@ -1,20 +1,17 @@
 # Create your views here.
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.db.models import Q
 from django.shortcuts import redirect, render
-
-
-def ViewName(request):
-    return HttpResponse("Enter response")
-
 
 from .forms import PolicyForm
 from .models import Customer, Policy
 
 
 def policy_view(request):
-    policies = Policy.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    # * icontains is kind of a regex match.
+    policies = Policy.objects.filter(Q(id__icontains=q) | Q(customer__id__icontains=q))
     context = {'policies': policies}
     return render(request, 'policy/policies.html', context)
 
