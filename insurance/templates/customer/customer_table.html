@@ -12,6 +12,7 @@
       <th scope="col"><a href="?order_by=name">Name</a></th>
       <th scope="col"><a href="?order_by=income_group">Income Group</a></th>
       <th scope="col"><a href="?order_by=region">Region</a></th>
+      <th scope="col"><a href="?order_by=gender">gender</a></th>
       <th scope="col"><a href="?order_by=marital_status">Marital Status</a></th>
       <th scope="col"></th>
       <th scope="col"></th>
@@ -28,6 +29,7 @@
       </td>
       <td>{{customer.income_group}}</td>
       <td>{{customer.region}}</td>
+      <td>{{customer.gender | title}}</td>
       <td>{{customer.marital_status}}</td>
       <td>
         <a href=" {% url 'base:updateCustomer' customer.id %}" class="text-success">Update</a>
