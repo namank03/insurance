@@ -46,7 +46,7 @@ class Customer(BaseModel):
 
     def __str__(self):
         """Unicode representation of Customer."""
-        return self.name
+        return f"{self.name}_{self.id}"
 
 
 class Policy(BaseModel):

@@ -91,7 +91,7 @@ def create_customer(request):
             form.save()
             messages.success(request, "Customer Updated successfully")
         else:
-            messages.error(request, "Invalid Value for Premium")
+            messages.error(request, "Something went wrong!!")
         return redirect("base:customers")
     context = {"form": form, "form_name": "Create Customer"}
     return render(request, "customer/customer_form.html", context)
@@ -108,7 +108,7 @@ def update_customer(request, pk):
             form.save()
             messages.success(request, "Customer Updated successfully")
         else:
-            messages.error(request, "Invalid Value for Premium")
+            messages.error(request, "Something went wrong!!")
         return redirect("base:customers")
     context = {"form": form, "form_name": "Update Customer"}
     return render(request, "customer/customer_form.html", context)
