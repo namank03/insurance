@@ -1,6 +1,12 @@
 # Create your views here.
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
+
+
+def ViewName(request):
+    return HttpResponse("Enter response")
+
 
 from .forms import PolicyForm
 from .models import Customer, Policy
@@ -25,3 +31,12 @@ def create_policy(request):
         return redirect('base:policies')
     context = {'form': form}
     return render(request, 'policy/policy_form.html', context)
+
+
+@login_required(login_url='login')
+def deletePolicy(request, pk):
+    policy = Policy.objects.get(id=pk)
+    if request.method == 'POST':
+        policy.delete()
+        return redirect('base:policies')
+    return render(request, 'pages/delete.html', {'obj': policy})
