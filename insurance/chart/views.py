@@ -1,6 +1,6 @@
 # shop/views.py
 
-from django.db.models import F, Sum
+from django.db.models import Count, F
 from django.db.models.functions import ExtractMonth, ExtractYear
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -26,14 +26,13 @@ def get_filter_options(request):
     )
 
 
-def get_sales_chart(request, year):
+def get_policy_chart(request, year):
     policies = Policy.objects.filter(created_at__year=year)
-    print(f'len(policies) -> {len(policies)}')
     grouped_policies = (
         policies.annotate(price=F('premium'))
         .annotate(month=ExtractMonth('created_at'))
         .values('month')
-        .annotate(average=Sum('premium'))
+        .annotate(average=Count('premium'))
         .values('month', 'average')
         .order_by('month')
     )
@@ -45,12 +44,12 @@ def get_sales_chart(request, year):
 
     return JsonResponse(
         {
-            'title': f'Sales in {year}',
+            'title': f'Policies {year}',
             'data': {
                 'labels': list(sales_dict.keys()),
                 'datasets': [
                     {
-                        'label': 'Amount ($)',
+                        'label': 'Count',
                         'backgroundColor': colorPrimary,
                         'borderColor': colorPrimary,
                         'data': list(sales_dict.values()),
