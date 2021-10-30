@@ -1,0 +1,41 @@
+<style>
+  th>a {
+    color: white;
+  }
+
+</style>
+
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"><a href="?order_by=id">Customer ID</a></th>
+      <th scope="col"><a href="?order_by=name">Name</a></th>
+      <th scope="col"><a href="?order_by=income_group">Income Group</a></th>
+      <th scope="col"><a href="?order_by=region">Region</a></th>
+      <th scope="col"><a href="?order_by=marital_status">Marital Status</a></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for customer in customers %}
+    <tr>
+      <th scope="row">
+        {{ customer.id }}
+      </th>
+      <td class="font-weight-bold">
+        <a href="{% url 'base:customerDetail' customer.id %}">{{ customer.name }}</a>
+      </td>
+      <td>{{customer.income_group}}</td>
+      <td>{{customer.region}}</td>
+      <td>{{customer.marital_status}}</td>
+      <td>
+        <a href=" {% url 'base:updateCustomer' customer.id %}" class="text-success">Update</a>
+      </td>
+      <td>
+        <a href="{% url 'base:deleteCustomer' customer.id %}" class="text-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -1,5 +1,5 @@
 <style>
-  a {
+  th>a {
     color: white;
   }
 
@@ -23,7 +23,12 @@
     <tr>
       <th scope="row">{{ policy.id }}</th>
       <td>{{policy.fuel}}</td>
-      <td>{{policy.customer}}</td>
+
+      <td class="font-weight-bold">
+        <a href="{% url 'base:customerDetail' policy.customer.id %}">
+          {{policy.customer}}
+        </a>
+      </td>
       <td>{{policy.created_at | date:"M d, Y" }}</td>
       <td>{{policy.vehicle_segment}}</td>
       <td>{{policy.premium}}</td>
