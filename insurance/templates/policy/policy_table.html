@@ -3,29 +3,25 @@
     color: white;
   }
 
-  .scrollme {
-    overflow-x: auto;
-  }
-
 </style>
-<div class="scrollme">
-  <table class="table table-bordered table-striped">
+<div class="">
+  <table class="table table-bordered table-striped" id="policyTable">
     <thead class="thead-dark">
       <tr>
-        <th scope="col"><a href="?order_by=id">Policy</a></th>
-        <th scope="col"><a href="?order_by=fuel">Fuel</a></th>
-        <th scope="col"><a href="?order_by=customer">Customer</a></th>
-        <th scope="col"><a href="#">Region</a></th>
-        <th scope="col"><a href="?order_by=date_of_purchase">Date Of Purchase</a></th>
-        <th scope="col"><a href="?order_by=vehicle_segment">Vehicle Segment</a></th>
-        <th scope="col"><a href="?order_by=bodily_injury_liability">Premium</a></th>
-        <th scope="col"><a href="?order_by=bodily_injury_liability">Bodily Injury Liability</a></th>
-        <th scope="col"><a href="?order_by=personal_injury_liability">Personal Injury Liability</a></th>
-        <th scope="col"><a href="?order_by=property_damage_liability">Property Damage Liability</a></th>
-        <th scope="col"><a href="?order_by=collision">Collision</a></th>
-        <th scope="col"><a href="?order_by=comprehensive">Comprehensive</a></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
+        <th scope="col">Policy</th>
+        <th scope="col">Fuel</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Region</th>
+        <th scope="col">Date Of Purchase</th>
+        <th scope="col">Vehicle Segment</th>
+        <th scope="col">Premium</th>
+        <th scope="col">Bodily Injury Liability</th>
+        <th scope="col">Personal Injury Liability</th>
+        <th scope="col">Property Damage Liability</th>
+        <th scope="col">Collision</th>
+        <th scope="col">Comprehensive</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -48,7 +44,6 @@
         <td>{{policy.property_damage_liability}}</td>
         <td>{{policy.collision}}</td>
         <td>{{policy.comprehensive}}</td>
-
         <td>
           <a href='{% url "base:update-policy" policy.id %}' class="text-success">Update</a>
         </td>
@@ -60,3 +55,12 @@
     </tbody>
   </table>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $('#policyTable').DataTable({
+      "scrollX": true
+    });
+  });
+
+</script>

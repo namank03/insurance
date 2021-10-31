@@ -12,14 +12,15 @@ from .models import Customer, Policy
 
 @login_required(login_url="account_login")
 def policy_view(request):
-    order_by = request.GET.get("order_by", "created_at")
-    q = request.GET.get("q") if request.GET.get("q") is not None else ""
+    # order_by = request.GET.get("order_by", "created_at")
+    # q = request.GET.get("q") if request.GET.get("q") is not None else ""
     # * icontains is kind of a regex match.
-    policies = Policy.objects.filter(
-        Q(id__icontains=q)
-        | Q(customer__id__icontains=q)
-        | Q(customer__name__icontains=q)
-    ).order_by(order_by)
+    policies = Policy.objects.all()
+    # filter(
+    #     Q(id__icontains=q)
+    #     | Q(customer__id__icontains=q)
+    #     | Q(customer__name__icontains=q)
+    # ).order_by(order_by)
     context = {"policies": policies}
     return render(request, "policy/policies.html", context)
 
