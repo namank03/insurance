@@ -68,7 +68,7 @@ jobs:
           # Get the location of pip cache dir
           path: ${{ steps.pip-cache-location.outputs.dir }}
           # Look to see if there is a cache hit for the corresponding requirements file
-          key: ${{ runner.os }}-pip-${{ hashFiles("**/local.txt") }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/local.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
