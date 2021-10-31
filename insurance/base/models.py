@@ -72,6 +72,12 @@ class Policy(BaseModel):
     premium = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(100000)]
     )
+    date_of_purchase = models.DateField(auto_now=False, auto_now_add=False)
+    bodily_injury_liability = models.BooleanField(default=False)
+    personal_injury_liability = models.BooleanField(default=False)
+    property_damage_liability = models.BooleanField(default=False)
+    collision = models.BooleanField(default=False)
+    comprehensive = models.BooleanField(default=False)
 
     class Meta:
         """Meta definition for ClassRoom."""

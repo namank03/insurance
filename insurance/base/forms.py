@@ -3,6 +3,10 @@ from django import forms
 from .models import Customer, Policy
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class PolicyForm(forms.ModelForm):
     """Form definition for Policy."""
 
@@ -11,6 +15,7 @@ class PolicyForm(forms.ModelForm):
 
         model = Policy
         fields = "__all__"
+        widgets = {'date_of_purchase': DateInput()}
 
 
 class CustomerForm(forms.ModelForm):
