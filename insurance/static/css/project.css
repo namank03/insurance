@@ -29,3 +29,11 @@ a:focus {
   color: rgb(202, 143, 143);
   text-decoration: none;
 }
+
+.chart {
+  display: grid;
+  /* divide cols into fractions */
+  grid-template-columns: 2fr 5fr;
+  place-items: center;
+  gap: 1em;
+}

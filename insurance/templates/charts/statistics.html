@@ -2,98 +2,119 @@
 
 
 {% block content %}
-<div class="container">
 
-  <div class="d-flex justify-content-between align-items-center">
-    <form id="filterForm">
-      <div class="form-group">
-        <label for="year">Choose a year:</label>
-        <select name="year" id="year"></select>
-      </div>
-      <div class="form-group">
-        <label for="region">Choose a Region:</label>
-        <select name="region" id="region"></select>
-      </div>
-      <input type="submit" value="Load" name="_load" class="form-control btn-success" />
-    </form>
+<div class="chart">
+  <form id="filterForm">
+    <div class="form-group">
+      <label for="year">Choose a year:</label>
+      <select name="year" id="year"></select>
+    </div>
+    <div class="form-group">
+      <label for="region">Choose a Region:</label>
+      <select name="region" id="region"></select>
+    </div>
+    <input type="submit" value="Load" name="_load" class="form-control btn-success" style="max-width: 300px" />
+  </form>
+
+  <div class="row">
     <canvas id="policyChart" class="col-8"></canvas>
+    <canvas id="PolicyPieChart"></canvas>
   </div>
-</div>
-<script>
-  $(document).ready(function () {
-    $.ajax({
-      url: "filter-options/",
-      type: "GET",
-      dataType: "json",
-      success: (jsonResponse) => {
-        // Load all the options
-        jsonResponse.year_options.forEach((option) => {
-          $("#year").append(new Option(option, option));
-        });
+  <script>
+    $(document).ready(function () {
+      $.ajax({
+        url: "filter-options/",
+        type: "GET",
+        dataType: "json",
+        success: (jsonResponse) => {
+          // Load all the options
+          jsonResponse.year_options.forEach((option) => {
+            $("#year").append(new Option(option, option));
+          });
 
-        jsonResponse.region_options.forEach((option) => {
-          $("#region").append(new Option(option, option));
-        });
+          jsonResponse.region_options.forEach((option) => {
+            $("#region").append(new Option(option, option));
+          });
 
-        // Load data for the first option
-        loadAllCharts($("#year").children().first().val(), $("#region").children().first().val());
-      },
-      error: () => console.log("Failed to fetch chart filter options!"),
+          // Load data for the first option
+          loadAllCharts($("#year").children().first().val(), $("#region").children().first().val());
+        },
+        error: () => console.log("Failed to fetch chart filter options!"),
+      });
     });
-  });
 
-  $("#filterForm").on("submit", (event) => {
-    event.preventDefault();
+    $("#filterForm").on("submit", (event) => {
+      event.preventDefault();
 
-    const year = $("#year").val();
-    const region = $("#region").val();
-    loadAllCharts(year, region);
-  });
-
-  function loadChart(chart, endpoint) {
-    $.ajax({
-      url: endpoint,
-      type: "GET",
-      dataType: "json",
-      success: (jsonResponse) => {
-        // Extract data from the response
-        const title = jsonResponse.title;
-        const labels = jsonResponse.data.labels;
-        const datasets = jsonResponse.data.datasets;
-
-        // Reset the current chart
-        chart.data.datasets = [];
-        chart.data.labels = [];
-
-        // Load new data into the chart
-        chart.options.title.text = title;
-        chart.options.title.display = true;
-        chart.data.labels = labels;
-        datasets.forEach((dataset) => {
-          chart.data.datasets.push(dataset);
-        });
-        console.log("endpoint: " + endpoint)
-        chart.update();
-      },
-      error: () =>
-        console.log("Failed to fetch chart data from " + endpoint + "!"),
+      const year = $("#year").val();
+      const region = $("#region").val();
+      loadAllCharts(year, region);
     });
-  }
 
-  function loadAllCharts(year, region) {
-    loadChart(policyChart, `policy/${year}/${region}`);
-  }
+    function loadChart(chart, endpoint) {
+      $.ajax({
+        url: endpoint,
+        type: "GET",
+        dataType: "json",
+        success: (jsonResponse) => {
 
-</script>
-<script>
-  let policyCtx = document.getElementById("policyChart").getContext("2d");
-  let policyChart = new Chart(policyCtx, {
-    type: "bar",
-    options: {
-      responsive: true,
-    },
-  });
+          // Extract data from the response
+          const title = jsonResponse.title;
+          const labels = jsonResponse.data.labels;
+          const datasets = jsonResponse.data.datasets;
+          console.log('datasets', datasets);
 
-</script>
-</div>
-{% endblock %}
+          // Reset the current chart
+          if (chart.data) {
+            chart.data.datasets = [];
+            chart.data.labels = [];
+
+
+            // Load new data into the chart
+            chart.options.title.text = title;
+            chart.options.title.display = true;
+            chart.data.labels = labels;
+            datasets.forEach((dataset) => {
+              chart.data.datasets.push(dataset);
+            });
+            console.log("endpoint: " + endpoint)
+            chart.update();
+          }
+        },
+        error: () =>
+          console.log("Failed to fetch chart data from " + endpoint + "!"),
+      });
+    }
+
+    function loadAllCharts(year, region) {
+      loadChart(policyChart, `policy/${year}/${region}`);
+      loadChart(PolicyPieChart, `policy-pie/${year}/${region}`);
+    }
+
+  </script>
+  <script>
+    let policyCtx = document.getElementById("policyChart").getContext("2d");
+    let policyChart = new Chart(policyCtx, {
+      type: "bar",
+      options: {
+        responsive: true,
+      },
+    });
+    let PolicyPieCtx = document.getElementById("PolicyPieChart").getContext("2d");
+    let PolicyPieChart = new Chart(PolicyPieCtx, {
+      type: "pie",
+      options: {
+        responsive: true,
+        layout: {
+          padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 25
+          }
+        }
+      }
+    });
+
+  </script>
+  {% endblock %}

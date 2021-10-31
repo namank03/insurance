@@ -12,4 +12,9 @@ urlpatterns = [
         name='chart-filter-options',
     ),
     path('policy/<int:year>/<str:region>', views.get_policy_chart, name='chart-policy'),
+    path(
+        'policy-pie/<int:year>/<str:region>',
+        views.get_policy_pie_chart,
+        name='chart-policy-pie',
+    ),
 ]

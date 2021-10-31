@@ -5,8 +5,13 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from insurance.base.models import Policy
-from insurance.utils.charts import colorPrimary, get_year_dict, months
+from insurance.base.models import Customer, Policy
+from insurance.utils.charts import (
+    colorPrimary,
+    generate_color_palette,
+    get_year_dict,
+    months,
+)
 
 
 def get_filter_options(request):
@@ -63,5 +68,43 @@ def get_policy_chart(request, year, region):
     )
 
 
+def get_policy_pie_chart(request, year, region):
+    policies = Policy.objects.filter(date_of_purchase__year=year)
+
+    grouped_policies = (
+        policies.values('customer__region')
+        .annotate(count=Count('id'))
+        .values('customer__region', 'count')
+        .order_by('customer__region')
+    )
+    print(f'grouped_policies -> {grouped_policies}')
+
+    region_dict = {region[1]: 0 for region in Customer.REGION_CHOICES}
+
+    for group in grouped_policies:
+        region_dict[dict(Customer.REGION_CHOICES)[group['customer__region']]] = group[
+            'count'
+        ]
+
+    print(f'region_dict -> {region_dict}')
+
+    return JsonResponse(
+        {
+            'title': f'Policies Purchased/Region in {year}',
+            'data': {
+                'labels': list(region_dict.keys()),
+                'datasets': [
+                    {
+                        'label': 'Amount ($)',
+                        'backgroundColor': generate_color_palette(len(region_dict)),
+                        'borderColor': generate_color_palette(len(region_dict)),
+                        'data': list(region_dict.values()),
+                    }
+                ],
+            },
+        }
+    )
+
+
 def statistics_view(request):
-    return render(request, "charts/statistics.html", {})
+    return render(request, 'charts/statistics.html', {})
