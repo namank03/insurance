@@ -15,7 +15,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
 
-  <link rel="icon" href="{% static "images/favicons/favicon.ico" %}">
+  <link rel="icon" href='{% static "images/favicons/favicon.ico" %}'>
 
   {% block css %}
   <!-- Latest compiled and minified Bootstrap CSS -->
@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-v4-grid-only@1.0.0/dist/bootstrap-grid.min.css" />
 
   <!-- This file stores project-specific CSS -->
-  <link href="{% static "css/project.css" %}" rel="stylesheet">
+  <link href='{% static "css/project.css" %}' rel="stylesheet">
   {% endblock %}
   <!-- Le javascript
     ================================================== -->
@@ -50,7 +50,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
   <!-- place project specific Javascript in this file -->
-  <script defer src="{% static "js/project.js" %}"></script>
+  <script defer src='{% static "js/project.js" %}'></script>
 
   {% endblock javascript %}
 
@@ -67,9 +67,9 @@
       </button>
       {% if request.user.is_authenticated %}
       {# URL provided by django-allauth/account/urls.py #}
-      <a class="navbar-brand" href="{% url "users:detail" request.user.username  %}">{% translate "Home" %}</a>
+      <a class="navbar-brand" href='{% url "users:detail" request.user.username  %}'>{% translate "Home" %}</a>
       {% else %}
-      <a class="navbar-brand" href="{% url "home" %}">Insurance</a>
+      <a class="navbar-brand" href='{% url "home" %}'>Insurance</a>
       {% endif %}
 
 
@@ -77,28 +77,30 @@
         <ul class="navbar-nav mr-auto">
           {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url "about" %}">About</a>
+            <a class="nav-link" href='{% url "about" %}'>About</a>
           </li>
           {% endif %}
           {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url "base:policies" %}">{% translate "Policies" %}</a>
+            <a class="nav-link" href='{% url "base:policies" %}'>{% translate "Policies" %}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url "base:customers" %}">{% translate "Customers" %}</a>
+            <a class="nav-link" href='{% url "base:customers" %}'>{% translate "Customers" %}</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href='{% url "chart:policy-statistics" %}'>Check-Stats</a></li>
+          <li class=" nav-item">
             {# URL provided by django-allauth/account/urls.py #}
-            <a class="nav-link" href="{% url "account_logout" %}">{% translate "Sign Out" %}</a>
+            <a class="nav-link" href='{% url "account_logout" %}'>{% translate "Sign Out" %}</a>
           </li>
           {% else %}
           <li class="nav-item">
             {# URL provided by django-allauth/account/urls.py #}
-            <a id="sign-up-link" class="nav-link" href="{% url "account_signup" %}">{% translate "Sign Up" %}</a>
+            <a id="sign-up-link" class="nav-link" href='{% url "account_signup" %}'>{% translate "Sign Up" %}</a>
           </li>
           <li class="nav-item">
             {# URL provided by django-allauth/account/urls.py #}
-            <a id="log-in-link" class="nav-link" href="{% url "account_login" %}">{% translate "Sign In" %}</a>
+            <a id="log-in-link" class="nav-link" href='{% url "account_login" %}'>{% translate "Sign In" %}</a>
           </li>
           {% endif %}
         </ul>

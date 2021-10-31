@@ -35,7 +35,7 @@
         <td>{{policy.fuel}}</td>
 
         <td class="font-weight-bold">
-          <a href="{% url "base:customerDetail" policy.customer.id %}">
+          <a href='{% url "base:customerDetail" policy.customer.id %}'>
             {{policy.customer}}
           </a>
         </td>
@@ -50,10 +50,10 @@
         <td>{{policy.comprehensive}}</td>
 
         <td>
-          <a href="{% url "base:updatePolicy" policy.id %}" class="text-success">Update</a>
+          <a href='{% url "base:updatePolicy" policy.id %}' class="text-success">Update</a>
         </td>
         <td>
-          <a href="{% url "base:deletePolicy" policy.id %}" class="text-danger">Delete</a>
+          <a href='{% url "base:deletePolicy" policy.id %}' class="text-danger">Delete</a>
         </td>
       </tr>
       {% endfor %}

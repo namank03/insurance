@@ -1,21 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
 <div class="container">
 
   <div class="d-flex justify-content-between align-items-center">
-    <form id="filterForm" class="form-horizontal col-3">
-      <label for="year">Choose a year:</label>
-      <select name="year" id="year"></select>
-      <label for="region">Choose a Region:</label>
-      <select name="region" id="region"></select>
-      <input type="submit" value="Load" name="_load" class="btn-success" />
+    <form id="filterForm">
+      <div class="form-group">
+        <label for="year">Choose a year:</label>
+        <select name="year" id="year"></select>
+      </div>
+      <div class="form-group">
+        <label for="region">Choose a Region:</label>
+        <select name="region" id="region"></select>
+      </div>
+      <input type="submit" value="Load" name="_load" class="form-control btn-success" />
     </form>
     <canvas id="policyChart" class="col-8"></canvas>
   </div>
 </div>
-{% block inline_javascript %}
 <script>
   $(document).ready(function () {
     $.ajax({
-      url: "chart/filter-options/",
+      url: "filter-options/",
       type: "GET",
       dataType: "json",
       success: (jsonResponse) => {
@@ -65,6 +72,7 @@
         datasets.forEach((dataset) => {
           chart.data.datasets.push(dataset);
         });
+        console.log("endpoint: " + endpoint)
         chart.update();
       },
       error: () =>
@@ -73,7 +81,7 @@
   }
 
   function loadAllCharts(year, region) {
-    loadChart(policyChart, `chart/policy/${year}/${region}`);
+    loadChart(policyChart, `policy/${year}/${region}`);
   }
 
 </script>
@@ -87,5 +95,5 @@
   });
 
 </script>
-{% endblock inline_javascript %}
 </div>
+{% endblock %}
