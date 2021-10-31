@@ -16,10 +16,9 @@ def get_filter_options(request):
         .order_by('-year')
         .distinct()
     )
-    grouped_regions = Customer.objects.values('region').distinct()
 
     year_options = [policy['year'] for policy in grouped_policies]
-    region_options = [region['region'] for region in grouped_regions]
+    region_options = ['east','west','south','north']
 
     return JsonResponse(
         {'year_options': year_options, 'region_options': region_options}
