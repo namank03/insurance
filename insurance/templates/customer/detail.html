@@ -22,7 +22,7 @@
       <li>Region: <span class="font-weight-bold"> {{customer.region|title}}</span></li>
       <li>Martial Status: <span class="font-weight-bold">{{customer.marital_status|title}}</span></li>
     </ul>
-    <a href='{% url "base:updateCustomer" customer.id %}' class="btn btn-success btn-lg my-2" role="button"
+    <a href='{% url "base:update-customer" customer.id %}' class="btn btn-success btn-lg my-2" role="button"
       aria-disabled="true">Edit Details</a>
   </div>
 </div>

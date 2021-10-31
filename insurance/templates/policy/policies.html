@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="header">
-  <a href='{% url "base:createPolicy" %}' class="btn btn-success btn-lg my-2" role="button"
+  <a href='{% url "base:create-policy" %}' class="btn btn-success btn-lg my-2" role="button"
     aria-disabled="true">AddPolicy</a>
   {% if policies %}
   <form class="header__search" method="GET" action='{% url "base:policies" %}'>
