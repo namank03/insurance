@@ -7,6 +7,7 @@
   <a href='{% url "base:create-customer" %}' class="btn btn-success btn-lg my-2" role="button" aria-disabled="true">Add
     Customer</a>
 
+  {% if customers %}
   <form class="header__search" method="GET" action='{% url "base:customers" %}'>
     <label>
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -18,10 +19,15 @@
       <input placeholder="Search for Customers..." name="q" />
     </label>
   </form>
+  {% endif %}
 </div>
 
 <hr>
 
+
+{% if customers %}
 {% include "customer/customer_table.html" %}
+{% endif %}
+
 
 {% endblock content %}

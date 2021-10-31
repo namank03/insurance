@@ -92,7 +92,7 @@ def create_customer(request):
         form = CustomerForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Customer Updated successfully")
+            messages.success(request, "Customer Created successfully")
         else:
             messages.error(request, "Something went wrong!!")
         return redirect("base:customers")
