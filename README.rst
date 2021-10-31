@@ -13,9 +13,10 @@ Web Application For Insurance Clients
 Basic Commands
 --------------
 
-Run Migrations - 
-python manage.py makemigrations base
-python manage.py migrate
+Run Migrations::
+
+    $ python manage.py makemigrations base
+    $ python manage.py migrate
 
 Setting Up Your Users
 ^^^^^^^^^^^^^^^^^^^^^
