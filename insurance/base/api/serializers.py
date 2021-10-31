@@ -1,20 +1,19 @@
-from rest_framework import serializers
+from rest_flex_fields import FlexFieldsModelSerializer
 
 from ..models import Customer, Policy
 
 
-class CustomerSerializer(serializers.ModelSerializer):
+class CustomerSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Customer
         fields = "__all__"
+        expandable_fields = {
+            'policies': ('insurance.base.api.PolicySerializer', {'many': True})
+        }
 
 
-class PolicySerializer(serializers.ModelSerializer):
-    customers = serializers.SerializerMethodField()
-
+class PolicySerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Policy
         fields = "__all__"
-
-    def get_customers(self, obj):
-        return CustomerSerializer(obj.Customer_id).data
+        expandable_fields = {'customer': ('insurance.base.api.CustomerSerializer')}
