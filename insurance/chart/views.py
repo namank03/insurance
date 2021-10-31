@@ -77,7 +77,6 @@ def get_policy_pie_chart(request, year, region):
         .values('customer__region', 'count')
         .order_by('customer__region')
     )
-    print(f'grouped_policies -> {grouped_policies}')
 
     region_dict = {region[1]: 0 for region in Customer.REGION_CHOICES}
 
@@ -85,8 +84,6 @@ def get_policy_pie_chart(request, year, region):
         region_dict[dict(Customer.REGION_CHOICES)[group['customer__region']]] = group[
             'count'
         ]
-
-    print(f'region_dict -> {region_dict}')
 
     return JsonResponse(
         {
