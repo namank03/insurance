@@ -7,18 +7,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0002_auto_20211030_1314'),
+        ("base", "0002_auto_20211030_1314"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customer',
-            name='income_group',
-            field=models.CharField(choices=[('0-25', '0-$25k'), ('>70', '>$70K'), ('25-70', '$25-$70K')], max_length=50),
+            model_name="customer",
+            name="income_group",
+            field=models.CharField(
+                choices=[("0-25", "0-$25k"), (">70", ">$70K"), ("25-70", "$25-$70K")],
+                max_length=50,
+            ),
         ),
         migrations.AlterField(
-            model_name='policy',
-            name='premium',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100000)]),
+            model_name="policy",
+            name="premium",
+            field=models.IntegerField(
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(100000),
+                ]
+            ),
         ),
     ]

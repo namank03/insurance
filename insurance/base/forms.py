@@ -10,7 +10,7 @@ class PolicyForm(forms.ModelForm):
         """Meta definition for Policyform."""
 
         model = Policy
-        fields = '__all__'
+        fields = "__all__"
 
 
 class CustomerForm(forms.ModelForm):
@@ -20,4 +20,4 @@ class CustomerForm(forms.ModelForm):
         """Meta definition for Customerform."""
 
         model = Customer
-        fields = '__all__'
+        fields = "__all__"

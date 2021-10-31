@@ -129,7 +129,7 @@ def customer_detail(request, pk):
     customer = Customer.objects.get(id=pk)
     policies = customer.policies.all()
     context = {
-        'customer': customer,
-        'policies': policies,
+        "customer": customer,
+        "policies": policies,
     }
     return render(request, "customer/detail.html", context)

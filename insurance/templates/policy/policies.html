@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
 <div class="header">
-  <a href="{% url 'base:createPolicy' %}" class="btn btn-success btn-lg my-2" role="button"
+  <a href="{% url "base:createPolicy" %}" class="btn btn-success btn-lg my-2" role="button"
     aria-disabled="true">AddPolicy</a>
   {% if policies %}
-  <form class="header__search" method="GET" action="{% url 'base:policies' %}">
+  <form class="header__search" method="GET" action="{% url "base:policies" %}">
     <label>
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
         <title>search</title>
@@ -23,8 +23,8 @@
 
 
 {% if policies %}
-{% include 'policy/policy_table.html' %}
-{% include 'charts/statistics.html' %}
+{% include "policy/policy_table.html" %}
+{% include "charts/statistics.html" %}
 {% endif %}
 
 

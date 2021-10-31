@@ -8,42 +8,110 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Customer',
+            name="Customer",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=50)),
-                ('gender', models.CharField(choices=[('Male', 'male'), ('Female', 'female'), ('other', 'other')], max_length=50)),
-                ('income_group', models.CharField(choices=[('0-25', '0-$25k'), ('>70', '>$70K'), ('25-70', '$25-$70K')], max_length=50)),
-                ('region', models.CharField(choices=[('east', 'east'), ('west', 'west'), ('south', 'south'), ('north', 'north')], max_length=50)),
-                ('marital_status', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=50)),
+                (
+                    "gender",
+                    models.CharField(
+                        choices=[
+                            ("Male", "male"),
+                            ("Female", "female"),
+                            ("other", "other"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "income_group",
+                    models.CharField(
+                        choices=[
+                            ("0-25", "0-$25k"),
+                            (">70", ">$70K"),
+                            ("25-70", "$25-$70K"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "region",
+                    models.CharField(
+                        choices=[
+                            ("east", "east"),
+                            ("west", "west"),
+                            ("south", "south"),
+                            ("north", "north"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("marital_status", models.BooleanField(default=False)),
             ],
             options={
-                'verbose_name': 'Customer',
-                'verbose_name_plural': 'Customers',
+                "verbose_name": "Customer",
+                "verbose_name_plural": "Customers",
             },
         ),
         migrations.CreateModel(
-            name='Policy',
+            name="Policy",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('fuel', models.CharField(choices=[('CNG', 'cng'), ('DIESEL', 'diesel'), ('PETROL', 'petrol')], max_length=50)),
-                ('vehicle_segment', models.CharField(choices=[('A', 'a'), ('B', 'b'), ('C', 'c')], max_length=50)),
-                ('premium', models.IntegerField()),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='policies', to='base.customer')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "fuel",
+                    models.CharField(
+                        choices=[
+                            ("CNG", "cng"),
+                            ("DIESEL", "diesel"),
+                            ("PETROL", "petrol"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "vehicle_segment",
+                    models.CharField(
+                        choices=[("A", "a"), ("B", "b"), ("C", "c")], max_length=50
+                    ),
+                ),
+                ("premium", models.IntegerField()),
+                (
+                    "customer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="policies",
+                        to="base.customer",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Policy',
-                'verbose_name_plural': 'Policies',
-                'ordering': ('created_at',),
+                "verbose_name": "Policy",
+                "verbose_name_plural": "Policies",
+                "ordering": ("created_at",),
             },
         ),
     ]

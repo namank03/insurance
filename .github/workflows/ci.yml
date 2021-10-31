@@ -7,19 +7,17 @@ env:
 
 on:
   pull_request:
-    branches: [ "master", "main" ]
-    paths-ignore: [ "docs/**" ]
+    branches: ["master", "main"]
+    paths-ignore: ["docs/**"]
 
   push:
-    branches: [ "master", "main" ]
-    paths-ignore: [ "docs/**" ]
-
+    branches: ["master", "main"]
+    paths-ignore: ["docs/**"]
 
 jobs:
   linter:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout Code Repository
         uses: actions/checkout@v2
 
@@ -31,7 +29,7 @@ jobs:
       # Run all pre-commit hooks on all the files.
       # Getting only staged files can be tricky in case a new PR is opened
       # since the action is run on a branch in detached head state
-      - name: Install and Run Pre-commit 
+      - name: Install and Run Pre-commit
         uses: pre-commit/action@v2.0.3
 
   # With no caching at all the entire ci process takes 4m 30s to complete!
@@ -51,7 +49,6 @@ jobs:
       DATABASE_URL: "postgres://postgres:postgres@localhost:5432/postgres"
 
     steps:
-
       - name: Checkout Code Repository
         uses: actions/checkout@v2
 
@@ -71,7 +68,7 @@ jobs:
           # Get the location of pip cache dir
           path: ${{ steps.pip-cache-location.outputs.dir }}
           # Look to see if there is a cache hit for the corresponding requirements file
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/local.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles("**/local.txt") }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
@@ -81,4 +78,4 @@ jobs:
           pip install -r requirements/local.txt
 
       - name: Test with pytest
-        run:  pytest
+        run: pytest

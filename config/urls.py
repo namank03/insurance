@@ -13,7 +13,7 @@ urlpatterns = [
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
-    # Django Admin, use {% url 'admin:index' %}
+    # Django Admin, use {% url "admin:index" %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("insurance.users.urls", namespace="users")),
@@ -29,8 +29,8 @@ urlpatterns += [
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
-    # path('rest-auth/', include('rest_auth.urls')),
-    # path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    # path("rest-auth/", include("rest_auth.urls")),
+    # path("rest-auth/registration/", include("rest_auth.registration.urls")),
 ]
 
 if settings.DEBUG:
