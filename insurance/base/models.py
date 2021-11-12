@@ -55,7 +55,7 @@ class Policy(BaseModel):
     FUEL_CHOICES = (
         ("CNG", "CNG"),
         ("DIESEL", "DIESEL"),
-        ("PETROL", "DIESEL"),
+        ("PETROL", "PETROL"),
     )
 
     VEHICLE_SEGMENT = (

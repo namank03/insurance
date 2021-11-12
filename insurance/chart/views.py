@@ -16,7 +16,6 @@ from insurance.utils.charts import (
 
 def get_filter_options(request):
     # q = request.GET.get("q") if request.GET.get("q") is not None else ""
-
     grouped_policies = (
         Policy.objects.annotate(year=ExtractYear("date_of_purchase"))
         .values("year")
@@ -37,18 +36,17 @@ def get_policy_chart(request, year, region):
         date_of_purchase__year=year, customer__region=region
     )
     grouped_policies = (
-        policies.annotate(price=F("premium"))
-        .annotate(month=ExtractMonth("date_of_purchase"))
+        policies.annotate(month=ExtractMonth("date_of_purchase"))
         .values("month")
-        .annotate(average=Count("premium"))
-        .values("month", "average")
+        .annotate(count=Count("premium"))
+        .values("month", "count")
         .order_by("month")
     )
 
     policy_dict = get_year_dict()
 
     for group in grouped_policies:
-        policy_dict[months[group["month"] - 1]] = round(group["average"], 2)
+        policy_dict[months[group["month"] - 1]] = round(group["count"], 2)
 
     return JsonResponse(
         {
