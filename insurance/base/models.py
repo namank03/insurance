@@ -26,10 +26,10 @@ class Customer(BaseModel):
     )
 
     REGION_CHOICES = (
-        ("east", "east"),
-        ("west", "west"),
-        ("south", "south"),
-        ("north", "north"),
+        ("EAST", "EAST"),
+        ("WEST", "WEST"),
+        ("SOUTH", "SOUTH"),
+        ("NORTH", "NORTH"),
     )
 
     name = models.CharField(max_length=50)
@@ -53,9 +53,9 @@ class Policy(BaseModel):
     """Model definition for Policy."""
 
     FUEL_CHOICES = (
-        ("CNG", "cng"),
-        ("DIESEL", "diesel"),
-        ("PETROL", "petrol"),
+        ("CNG", "CNG"),
+        ("DIESEL", "DIESEL"),
+        ("PETROL", "DIESEL"),
     )
 
     VEHICLE_SEGMENT = (

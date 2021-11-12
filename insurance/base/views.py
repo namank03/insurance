@@ -32,7 +32,7 @@ def create_policy(request):
         form = PolicyForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Policy Updated successfully")
+            messages.success(request, "Policy Created successfully")
         else:
             messages.error(request, "Invalid Value for Premium")
         return redirect("base:policies")
