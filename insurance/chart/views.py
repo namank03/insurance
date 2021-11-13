@@ -1,6 +1,6 @@
 # shop/views.py
 
-from django.db.models import Count, F
+from django.db.models import Count
 from django.db.models.functions import ExtractMonth, ExtractYear
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -22,6 +22,7 @@ def get_filter_options(request):
         .order_by("-year")
         .distinct()
     )
+    print(f'grouped_policies.query -> {grouped_policies.query}')
 
     year_options = [policy["year"] for policy in grouped_policies]
     region_options = ["EAST", "WEST", "SOUTH", "NORTH"]
@@ -35,6 +36,7 @@ def get_policy_chart(request, year, region):
     policies = Policy.objects.filter(
         date_of_purchase__year=year, customer__region=region
     )
+
     grouped_policies = (
         policies.annotate(month=ExtractMonth("date_of_purchase"))
         .values("month")
