@@ -1,10 +1,7 @@
+from bootstrap_datepicker_plus import DatePickerInput
 from django import forms
 
 from .models import Customer, Policy
-
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
 
 
 class PolicyForm(forms.ModelForm):
@@ -15,7 +12,7 @@ class PolicyForm(forms.ModelForm):
 
         model = Policy
         fields = "__all__"
-        widgets = {'date_of_purchase': DateInput()}
+        widgets = {'date_of_purchase': DatePickerInput()}
 
 
 class CustomerForm(forms.ModelForm):

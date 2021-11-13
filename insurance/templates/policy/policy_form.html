@@ -9,6 +9,7 @@
     {{form_name }}
   </div>
   <div class="card-body">
+    {{ form.media }} {# Adds date-picker required JS and CSS #}
     <form class="form-horizontal" method="post">
       {% csrf_token %}
       <div class="row">

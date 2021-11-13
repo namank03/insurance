@@ -46,9 +46,12 @@ def update_policy(request, pk):
     # Prefilling the form with the policy instance value
     form = PolicyForm(instance=policy)
     # Making date of purchase field read-only.
-    form.fields['date_of_purchase'].widget.attrs['readonly'] = True
+    form.fields['date_of_purchase'].disabled = True
     if request.method == "POST":
         form = PolicyForm(request.POST, instance=policy)
+        import ipdb
+
+        ipdb.set_trace()
         if form.is_valid():
             policy = form.save(commit=False)
             policy.save()

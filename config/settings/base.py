@@ -77,6 +77,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     # "rest_auth",
     'drf_yasg',
+    'bootstrap_datepicker_plus'
 ]
 
 LOCAL_APPS = [

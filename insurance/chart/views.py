@@ -27,6 +27,8 @@ def get_filter_options(request):
     year_options = [policy["year"] for policy in grouped_policies]
     region_options = ["EAST", "WEST", "SOUTH", "NORTH"]
 
+    print(f'year_options -> {year_options}')
+
     return JsonResponse(
         {"year_options": year_options, "region_options": region_options}
     )
